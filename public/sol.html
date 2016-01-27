@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <!-- ie9+ rendering support for latest standards -->
+  <meta http-equiv="Content-Type" content="text/html; 
+    charset=ISO-8859-1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Solinor</title>
+
+  <!-- third-party javascript -->
+  <script src="js/jq/taffy/taffy-min.js"  ></script>
+  <script src="js/jq/jquery/dist/jquery.min.js"></script>
+
+  <!-- our javascript -->
+  <script src="js/sol.js"                   ></script>
+  <script src="js/sol.util.js"              ></script>
+  <script src="js/sol.model.js"             ></script>
+  <script src="js/sol.shell.js"             ></script>
+  <script src="js/sol.salary_calculator.js" ></script>
+  <script src="js/sol.csv_handler.js"       ></script>
+  <script>
+    $(function () { sol.initModule( $('#sol') ); });
+  </script>
+
+</head>
+<body>
+<div id="sol"></div>
+</body>
+</html>

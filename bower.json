@@ -1,0 +1,27 @@
+{
+  "name": "solinor",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Santeri Horttanainen <santeri.horttanainen@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/js/jq",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "taffy": "*"
+  }
+}
