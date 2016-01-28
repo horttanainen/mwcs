@@ -37,6 +37,7 @@ describe('Tesing csv_parser', function () {
     expect( shift_db({ id : 0 }).first() )
       .to.not.be.equal( false );
   });
+
 });
 
 describe('Tesing employee model', function () {

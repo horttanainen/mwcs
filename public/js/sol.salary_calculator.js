@@ -19,7 +19,8 @@ sol.salary_calculator = (function (){
     totalPayForShift, eveningCompensationForShift, overtimeCompensationForShift,
     eveningHoursInShift, totalHoursInShift, hoursBeforeEveningInShift,
     hoursAfterMorningInShift, sumOvertimeCompensationsTogether, regularDailyWageForShift,
-    compensationForTimeIntervalWithPercent, roundToTwoDecimals;
+    compensationForTimeIntervalWithPercent, roundToTwoDecimals, 
+    calculateAllWagesAndAddToDb;
 
     roundToTwoDecimals = function ( number ) {
       return Math.round( number * 100 ) / 100;
@@ -85,6 +86,9 @@ sol.salary_calculator = (function (){
       hours_after_evening   = hoursAfterMorningInShift( shift );
 
       evening_hours = shift_total_hours - hours_before_evening - hours_after_evening;
+
+      sol.model.employees.update_employee( shift.employee_id, ['evening_hours', evening_hours] );
+      sol.model.accounts.update_account( shift.id, ['evening_hours', evening_hours ]);
       return roundToTwoDecimals( evening_hours );
     };
 
@@ -140,14 +144,18 @@ sol.salary_calculator = (function (){
       var overtime_in_hours, shift_total_hours;
 
       shift_total_hours = totalHoursInShift( shift );
-      overtime_in_hours = shift_total_hours - 8;
+      overtime_in_hours = Math.max( shift_total_hours - 8, 0 );
 
+      sol.model.employees.update_employee( shift.employee_id, ['overtime_hours' , overtime_in_hours] );
+      sol.model.accounts.update_account( shift.id, ['overtime_hours', overtime_in_hours ]);
       return sumOvertimeCompensationsTogether( overtime_in_hours );
     };
 
     regularDailyWageForShift = function ( shift ) {
       var regular_hours = Math.min( 8, totalHoursInShift( shift ) );
 
+      sol.model.employees.update_employee( shift.employee_id, ['regular_hours' , regular_hours] );
+      sol.model.accounts.update_account( shift.id, ['regular_hours', regular_hours ]);
       return configMap.regular_wage * regular_hours;
     };
 
@@ -159,12 +167,33 @@ sol.salary_calculator = (function (){
       overtime_compensation = overtimeCompensationForShift( shift );
       total_pay = roundToTwoDecimals( regular_daily_wage + evening_compensation + overtime_compensation );
       
+      sol.model.employees.update_employee( shift.employee_id, ['regular_earn' , regular_daily_wage] );
+      sol.model.accounts.update_account( shift.id, ['regular_earn', regular_daily_wage ]);
+      sol.model.employees.update_employee( shift.employee_id, ['evening_earn' , evening_compensation] );
+      sol.model.accounts.update_account( shift.id, ['evening_earn', evening_compensation ]);
+      sol.model.employees.update_employee( shift.employee_id, ['overtime_earn' , overtime_compensation] );
+      sol.model.accounts.update_account( shift.id, ['overtime_earn', overtime_compensation ]);
       return total_pay;
+    };
+
+    calculateAllWagesAndAddToDb = function () {
+      var shift_db = sol.model.accounts.get_db(),
+        shifts, i, total_pay, shift;
+
+      shifts = shift_db().get();
+
+      for ( i = 0; i < shifts.length; i++ ) {
+        shift = shifts[ i ];
+        total_pay = totalPayForShift( shift );
+        sol.model.employees.update_employee( shift.employee_id, ['total_earn', total_pay] );
+        sol.model.accounts.update_account( shift.id, ['total_earn', total_pay ]);
+      }
     };
 
     return {
       overtimeCompensationForShift  : overtimeCompensationForShift,
       eveningHoursInShift : eveningHoursInShift,
-      totalPayForShift : totalPayForShift
+      totalPayForShift : totalPayForShift,
+      calculateAllWagesAndAddToDb : calculateAllWagesAndAddToDb
     };
 }());

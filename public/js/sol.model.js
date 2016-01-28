@@ -10,13 +10,35 @@ sol.model = (function () {
       account_cid  : 0,
     },
     accounts, employees, makeEmployee,
-    makeShift;
+    makeShift, employeeProto, accountProto;
+
+  employeeProto = {
+    total_earn      : 0,
+    total_hours     : 0,
+    regular_earn    : 0,
+    regular_hours   : 0,
+    overtime_earn   : 0,
+    overtime_hours  : 0,
+    evening_earn    : 0,
+    evening_hours   : 0
+  };
+  accountProto = {
+    total_earn      : 0,
+    total_hours     : 0,
+    regular_earn    : 0,
+    regular_hours   : 0,
+    overtime_earn   : 0,
+    overtime_hours  : 0,
+    evening_earn    : 0,
+    evening_hours   : 0
+  };
 
   makeEmployee = function ( employee_map ) {
-    var employee = {},
+    var employee,
       name = employee_map.name,
       id   = employee_map.id;
 
+    employee      = Object.create( employeeProto );
     employee.name = name;
     employee.id   = id;
 
@@ -25,12 +47,13 @@ sol.model = (function () {
   };
 
   makeShift = function ( shift_map ) {
-    var shift = {},
+    var shift,
       employee      = shift_map.employee,
       date          = shift_map.date,
       shift_start   = shift_map.date_start,
       shift_end     = shift_map.date_end;
     
+    shift             = Object.create( accountProto );
     shift.employee_id = employee.id;
     shift.date        = date;
     shift.shift_start = shift_start;
@@ -42,7 +65,7 @@ sol.model = (function () {
   };
 
   employees = (function () {
-    var get_db, get_employee, clear_db;
+    var get_db, get_employee, clear_db, update_employee;
 
     get_db = function () {
       return stateMap.employee_db;
@@ -59,11 +82,23 @@ sol.model = (function () {
       return employee;
     };
 
+    update_employee = function ( employee_id, update_map ) {
+
+      stateMap.employee_db({ id : employee_id }).update( function () {
+      var attribute = update_map[0],
+        new_value   = update_map[1];
+      
+      this[ attribute ] = new_value + ( this[attribute] || 0);
+      return this;
+      });
+    };
+
     clear_db = function () {
       stateMap.employee_db   = TAFFY();
     };
 
     return {
+      update_employee : update_employee,
       clear_db : clear_db,
       get_db : get_db,
       get_employee : get_employee
@@ -71,7 +106,7 @@ sol.model = (function () {
   }());
 
   accounts = (function () {
-    var get_db, clear_db;
+    var get_db, clear_db, update_account;
 
     get_db = function () {
       return stateMap.account_db;
@@ -82,7 +117,15 @@ sol.model = (function () {
       stateMap.account_cid = 0;
     };
 
+    update_account = function ( account_id, update_map ) {
+      var attribute = update_map[0],
+        new_value   = update_map[1];
+
+      stateMap.account_db({ id : account_id }).update( attribute, new_value );
+    };
+
     return {
+      update_account : update_account,
       clear_db : clear_db,
       get_db : get_db
     };

@@ -1,0 +1,77 @@
+.sol-shell-head, .sol-shell-head-logo, .sol-shell-head-acct,
+.sol-shell-head-search, .sol-shell-main, .sol-shell-main-file,
+.sol-shell-main-list, .sol-shell-foot, .sol-shell-main-file-drop,
+.sol-shell-main-file-regular {
+  position : absolute;
+}
+.sol-shell-head {
+  top    : 0;
+  left   : 0;
+  right  : 0;
+  height : 80px;
+  background : #1a75ff;
+}
+.sol-shell-head-logo {
+  top    : 20px;
+  left   : 20px;
+  height : 50px;
+  width  : 250px;
+  background : #FFFFFF;
+}
+  .sol-shell-head-logo h1 {
+    font   : 800 30px/30px Arial, Helvetica, sans-serif;
+    margin : 0;
+  }
+  .sol-shell-head-logo p {
+    font   : 800 15px/15px Arial, Helvetica, sans-serif;
+    margin : 0;
+  }
+
+.sol-shell-main {
+  top    : 80px;
+  left   : 10%;
+  bottom : 80px;
+  right  : 10%;
+  background : #FFFFFF;
+}
+  .sol-shell-main-file {
+    top        : 0;
+    left       : 0;
+    right      : 0;
+    height     : 50%;
+    background : #999;
+  }
+    .sol-shell-main-file-drop {
+      top        : 10%;
+      left       : 20%;
+      right      : 20%;
+      bottom     : 20%;
+      background : #295;
+    }
+      .dragover {
+        border: 2px solid #00aef0;
+        background : #843;
+      }
+    .sol-shell-main-file-regular {
+      top       : 80%;
+      left      : 20%;
+      right     : 20%;
+      bottom    : 0;
+      background: #962;
+    }
+
+  .sol-shell-main-list {
+    top     : 55%;
+    left    : 0;
+    right   : 0;
+    bottom  : 10%;
+    background : #924;
+  }
+
+.sol-shell-foot {
+  bottom : 0;
+  left   : 0;
+  right  : 0;
+  height : 80px;
+  background : #1a75ff;
+}
