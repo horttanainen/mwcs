@@ -1,4 +1,4 @@
 node_modules
-public/js/jq
+public/js/jq/*
 !public/js/jq/jquery.event.gevent/
 !public/js/jq/jquery.event.gevent/*
