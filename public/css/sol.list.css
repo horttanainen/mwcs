@@ -1,45 +1,45 @@
 .sol-shell-main-list { 
-background : #FFFFFF;
-color      : #606060;
-vertical-align : middle;
-padding-bottom : 1em;
+background      : #FFFFFF;
+color           : #606060;
+vertical-align  : middle;
+padding-bottom  : 1em;
 }
 
 .sol-shell-main-list-employees {
-  margin-left: 15%;
-  margin-right: 15%;
-  list-style : none;
-  font-size  : 1.5em;
+  margin-left   : 15%;
+  margin-right  : 15%;
+  list-style    : none;
+  font-size     : 1.5em;
 }
 .sol-shell-main-list-employees li {
   margin  : 0.5em 0;
 }
   .sol-shell-main-list-employees li:hover hr {
-    border-top: 1px solid #00aef0; 
+    border-top  : 1px solid #00aef0; 
   }
 
   .sol-shell-main-list-employees li:hover {
-    color : #00aef0;
-    cursor : pointer;
+    color   : #00aef0;
+    cursor  : pointer;
   }
 
 .sol-shell-main-list-employees hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #C0C0C0;
-  padding: 0; 
+  display     : block;
+  height      : 1px;
+  border      : 0;
+  border-top  : 1px solid #C0C0C0;
+  padding     : 0; 
 }
 .sol-shell-main-list-employee-header,
 .sol-shell-main-list-employee-back,
 .sol-shell-main-list-employee-table {
-  margin-left : 15%;
-  margin-right : 15%;
+  margin-left   : 15%;
+  margin-right  : 15%;
 }
 
 .sol-shell-main-list-employee-header {
-  font-size : 2em;
-  border-bottom: 1px solid #C0C0C0;
+  font-size     : 2em;
+  border-bottom : 1px solid #C0C0C0;
 }
 .sol-shell-main-list-employee-header span {
   font-weight : bold;

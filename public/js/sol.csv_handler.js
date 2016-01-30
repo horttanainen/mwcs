@@ -2,9 +2,11 @@
 
 sol.csv_handler = (function (){
   var
-    splitLine, makeDateFromString, hourToString, shiftEndIsEarlierThanStart,
-    changeToMilliseconds, makeDateFromShiftStartOrEnd, readCsvFile,
-    addOneDayToShiftEndIfMidnightShift, checkIfLineContainsWrongInput;
+    makeDateFromString, changeToMilliseconds, makeDateFromShiftStartOrEnd,
+    hourToString,       shiftEndIsEarlierThanStart,
+    addOneDayToShiftEndIfMidnightShift,       checkIfLineContainsWrongInput,
+    processTheShiftPieces,                    splitLine,
+    readCsvFile;
   
   makeDateFromString = function ( date_to_parse ) {
     var date_parts, day, year, month;
@@ -45,7 +47,7 @@ sol.csv_handler = (function (){
     return false;
   };
 
-  addOneDayToShiftEndIfMidnightShift = function (shift_start, shift_end ) {
+  addOneDayToShiftEndIfMidnightShift = function ( shift_start, shift_end ) {
     var start_parts, end_parts, starting_hour, ending_hour, ending_minute;
 
     start_parts = shift_start.split( ':' );
@@ -53,7 +55,7 @@ sol.csv_handler = (function (){
 
     starting_hour   = parseInt( start_parts[0], 10 );
     ending_hour     = parseInt( end_parts[0], 10 );
-    ending_minute  = parseInt( end_parts[1], 10 );
+    ending_minute   = parseInt( end_parts[1], 10 );
 
     if ( shiftEndIsEarlierThanStart( starting_hour, ending_hour ) ) {
       ending_hour += 24;
@@ -96,19 +98,11 @@ sol.csv_handler = (function (){
     return false;
   };
 
-  splitLine = function ( line ) {
+  processTheShiftPieces = function ( shift_line_parts ) {
     var
-      employee, shift_line_parts, employee_name, employee_id, date_to_parse,
+      employee, employee_name, employee_id, date_to_parse,
       shift_start, shift_end, shift_start_to_parse, shift_end_to_parse, date,
       shift;
-
-    shift_line_parts = line.split( ',' );
-    if (shift_line_parts.length < 5 ) {
-      alert('File contains badly formatted line');
-    }
-    if ( checkIfLineContainsWrongInput( shift_line_parts ) ) {
-      alert('File contains a bad line');
-    }
 
     employee_name         = shift_line_parts[0];
     employee_id           = parseInt( shift_line_parts[1], 10 );
@@ -139,10 +133,24 @@ sol.csv_handler = (function (){
     return shift;
   };
 
+  splitLine = function ( line ) {
+    var shift_line_parts;
+
+    shift_line_parts = line.split( ',' );
+
+    if (shift_line_parts.length < 5 ) {
+      alert( 'File contains badly formatted line' );
+    }
+    if ( checkIfLineContainsWrongInput( shift_line_parts ) ) {
+      alert( 'File contains a bad line' );
+    }
+
+    return processTheShiftPieces( shift_line_parts );
+  };
+
   readCsvFile = function ( evt, callback ) {
-    var files,
-      reader = new FileReader(),
-      lines, line, file;
+    var files, lines, line, file,
+      reader = new FileReader();
 
     if ( evt.target.files ){
       files = evt.target.files;
@@ -152,21 +160,22 @@ sol.csv_handler = (function (){
     file = files[0];
 
     if ( ! file ) {
-      alert("Failed to load file");
+      alert( "Failed to load file" );
     }
 
     reader.onload = function() {
       lines = this.result.split('\n');
       if ( lines.length < 2 ) {
-        alert('csv must be formatted with newlines!');
+        alert( '.csv must be formatted with newlines!' );
       }
       for( line = 1; line < lines.length; line++ ){
-        if (lines[line].length > 0 ) {
+        if ( lines[ line ].length > 0 ) {
           splitLine( lines[ line ] );
         }
       }
       callback();
     };
+
     reader.readAsText(file, "UTF-8");
   };
   

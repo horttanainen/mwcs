@@ -1,6 +1,6 @@
 .sol-shell-main-file {
-  background : #FFFFFF;
-  padding-bottom: 1em;
+  background      : #FFFFFF;
+  padding-bottom  : 1em;
 }
 .sol-shell-main-file-drop {
   border            : 1px solid #C0C0C0;
@@ -26,7 +26,7 @@
   }
 
   .sol-shell-main-file-regular-header {
-    margin-top  :1em;
+    margin-top  : 1em;
   }
 
   .sol-shell-main-file-regular label {

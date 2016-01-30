@@ -24,7 +24,7 @@ sol.shell = (function () {
     },
     jqueryMap = {},
 
-    initModule, setJqueryMap, onLogoClick;
+    setJqueryMap, initModule, onLogoClick;
     
   setJqueryMap = function () {
     var $container = stateMap.$container;
@@ -47,7 +47,7 @@ sol.shell = (function () {
 
     sol.file.initModule( jqueryMap.$file );
     sol.list.initModule( jqueryMap.$list );
-    sol.model.accounts.clear_db();
+    sol.model.shifts.clear_db();
     sol.model.employees.clear_db();
   };
 

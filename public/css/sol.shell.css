@@ -1,20 +1,20 @@
 .sol-shell-head {
-  position : fixed;
-  top    : 0;
-  left   : 0;
-  right  : 0;
-  height : 4em;
-  background : #00aef0;
-  z-index : 1;
+  position    : fixed;
+  top         : 0;
+  left        : 0;
+  right       : 0;
+  height      : 4em;
+  background  : #00aef0;
+  z-index     : 1;
 }
 .sol-shell-head-logo {
-  position : absolute;
-  top    : 0.2em;
-  left   : 2em;
-  height : 3.4em;
-  width  : 230px;
-  background : #C0C0C0;
-  cursor : pointer;
+  position    : absolute;
+  top         : 0.2em;
+  left        : 2em;
+  height      : 3.4em;
+  width       : 230px;
+  background  : #C0C0C0;
+  cursor      : pointer;
 }
   .sol-shell-head-logo h1 {
     font   : 800 30px/30px;
@@ -26,16 +26,16 @@
   }
 
 .sol-shell-main {
-  margin-top : 4em;
-  margin-left : 10%;
-  padding-top : 1em;
-  margin-right :10%;
-  background : #FFFFFF;
+  margin-top    : 4em;
+  margin-left   : 10%;
+  padding-top   : 1em;
+  margin-right  : 10%;
+  background    : #FFFFFF;
 }
 
 .sol-shell-foot {
-  width  : 100%;
-  height : 2em;
-  background : #0077ae;
-  z-index : 1;
+  width       : 100%;
+  height      : 2em;
+  background  : #0077ae;
+  z-index     : 1;
 }

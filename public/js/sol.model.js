@@ -5,12 +5,16 @@ sol.model = (function () {
 
   var
     stateMap = {
-      account_db   : TAFFY(),
+      shift_db   : TAFFY(),
       employee_db  : TAFFY(),
-      account_cid  : 0,
+      shift_cid  : 0,
     },
-    accounts, employees, makeEmployee,
-    makeShift, employeeProto, accountProto;
+    employeeProto,
+    shiftProto,
+    makeEmployee,
+    makeShift,
+    employees,
+    shifts;
 
   employeeProto = {
     total_earn      : 0,
@@ -22,7 +26,7 @@ sol.model = (function () {
     evening_earn    : 0,
     evening_hours   : 0
   };
-  accountProto = {
+  shiftProto = {
     total_earn      : 0,
     total_hours     : 0,
     regular_earn    : 0,
@@ -53,14 +57,14 @@ sol.model = (function () {
       shift_start   = shift_map.date_start,
       shift_end     = shift_map.date_end;
     
-    shift             = Object.create( accountProto );
+    shift             = Object.create( shiftProto );
     shift.employee_id = employee.id;
     shift.date        = date;
     shift.shift_start = shift_start;
     shift.shift_end   = shift_end;
-    shift.id          = stateMap.account_cid++;
+    shift.id          = stateMap.shift_cid++;
 
-    stateMap.account_db.insert( shift );
+    stateMap.shift_db.insert( shift );
     return shift;
   };
 
@@ -85,10 +89,13 @@ sol.model = (function () {
     update_employee = function ( employee_id, update_map ) {
 
       stateMap.employee_db({ id : employee_id }).update( function () {
-      var attribute = update_map[0],
-        new_value   = update_map[1];
+      var 
+        attribute   = update_map[0],
+        new_value   = update_map[1],
+        rounded_sum = new_value + ( this[ attribute ] || 0 );
+        rounded_sum = Math.round( rounded_sum *100 ) / 100;
       
-      this[ attribute ] =Math.round( (new_value + ( this[attribute] || 0) ) * 100 ) / 100;
+      this[ attribute ] = rounded_sum;
       return this;
       });
     };
@@ -105,36 +112,38 @@ sol.model = (function () {
     };
   }());
 
-  accounts = (function () {
-    var get_db, clear_db, update_account;
+  shifts = (function () {
+    var get_db, clear_db, update_shift;
 
     get_db = function () {
-      return stateMap.account_db;
+      return stateMap.shift_db;
     };
 
     clear_db = function () {
-      stateMap.account_db   = TAFFY();
-      stateMap.account_cid = 0;
+      stateMap.shift_db   = TAFFY();
+      stateMap.shift_cid = 0;
     };
 
-    update_account = function ( account_id, update_map ) {
+    update_shift = function ( shift_id, update_map ) {
       var attribute = update_map[0],
         new_value   = update_map[1];
 
-      stateMap.account_db({ id : account_id }).update( attribute, new_value );
+      stateMap.shift_db({ id : shift_id }).update( attribute, new_value );
     };
 
     return {
-      update_account : update_account,
+      update_shift : update_shift,
       clear_db : clear_db,
       get_db : get_db
     };
+
   }());
 
   return {
     makeShift       : makeShift,  
     makeEmployee    : makeEmployee,
     employees       : employees,
-    accounts        : accounts
+    shifts          : shifts
   };
+
 }());

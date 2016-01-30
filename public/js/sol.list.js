@@ -12,9 +12,15 @@ sol.list =(function (){
     },
     jqueryMap = {},
 
-    initModule, setJqueryMap, listEmployees, listFakeData,
-    onListElementClick, populateListWithEmployeeStatistics,
-    populateContainerWithEmployeeHtml, revertToList;
+    setJqueryMap,
+    addEmployeeClickEventListener,
+    revertToListFromEmployeeView,
+    listEmployees,
+    populateContainerWithEmployeeHtml,
+    addBackButtonEventListener,
+    populateListWithEmployeeStatistics,
+    onListElementClick,
+    initModule;
     
   setJqueryMap = function () {
     var $container = stateMap.$container;
@@ -25,23 +31,34 @@ sol.list =(function (){
     };
   };
 
-  revertToList = function() {
-    jqueryMap.$container.html( configMap.main_html );
-    setJqueryMap();
-    listEmployees();
+  addEmployeeClickEventListener = function () {
     jqueryMap.$employees
       .bind( 'click', onListElementClick );
   };
 
+  revertToListFromEmployeeView = function() {
+    jqueryMap.$container.html( configMap.main_html );
+    setJqueryMap();
+    listEmployees();
+    addEmployeeClickEventListener();
+  };
+
   listEmployees = function () {
-    var employees = sol.model.employees.get_db()().get(),
+    var 
+      employees_db  = sol.model.employees.get_db(),
+      employees     = employees_db().get(),
       i, employee, list_element;
+
     for ( i = 0; i < employees.length; i++ ) {
       employee = employees[ i ];
-      list_element = '<li name="' + employee.id + '">' + employee.name +', $' +employee.total_earn + '<hr></li>';
+      list_element = 
+        '<li name="' + employee.id + '">' 
+        + employee.name +', $' +employee.total_earn + '<hr></li>';
+
       jqueryMap.$employees.append(list_element);
     }
   };
+
   populateContainerWithEmployeeHtml = function (employee) {
     jqueryMap.$container.html(
       String()
@@ -74,14 +91,19 @@ sol.list =(function (){
   );
   };
 
+  addBackButtonEventListener = function () {
+    $('.sol-shell-main-list-employee-back')
+      .bind('click', revertToListFromEmployeeView );
+  };
+
   populateListWithEmployeeStatistics = function ( employee_id ) {
     var employee_db, employee;
+
     employee_db = sol.model.employees.get_db();
     employee    = employee_db({ id : employee_id }).first();
 
     populateContainerWithEmployeeHtml( employee );
-    $('.sol-shell-main-list-employee-back')
-      .bind('click', revertToList );
+    addBackButtonEventListener();
   };
 
   onListElementClick = function ( event ) { 
@@ -101,8 +123,6 @@ sol.list =(function (){
       .bind( 'click', onListElementClick );
   };
 
-  return {
-          initModule : initModule 
-        };
+  return { initModule : initModule };
 }());
 

@@ -15,11 +15,13 @@
   <script src="../js/jq/jquery/dist/jquery.min.js"></script>
   <script src="../../node_modules/mocha/mocha.js" ></script>
   <script src="../../node_modules/chai/chai.js"   ></script>
+  <script src="../../node_modules/jquery.event.gevent/jquery.event.gevent.js"></script>
 
   <!-- our javascript -->
   <script src="../js/sol.js"                   ></script>
-  <script src="../js/sol.util.js"              ></script>
   <script src="../js/sol.model.js"             ></script>
+  <script src="../js/sol.file.js"              ></script>
+  <script src="../js/sol.list.js"              ></script>
   <script src="../js/sol.shell.js"             ></script>
   <script src="../js/sol.salary_calculator.js" ></script>
   <script src="../js/sol.csv_handler.js"       ></script>
@@ -29,7 +31,7 @@
   </script>
 </head>
 <body>
-<div id="sol" style="diplay:none"></div>
+<div id="sol" style="diplay:none;"></div>
 <div id="mocha"></div>
   <script>
       mocha.ui('bdd'); 

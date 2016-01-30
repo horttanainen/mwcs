@@ -33,7 +33,7 @@ describe('Tesing csv_parser', function () {
   });
 
   it( 'parsed shift gets added to taffyDb', function () {
-    var shift_db = sol.model.accounts.get_db();
+    var shift_db = sol.model.shifts.get_db();
     expect( shift_db({ id : 0 }).first() )
       .to.not.be.equal( false );
   });
@@ -114,8 +114,8 @@ describe('Tesing shift model', function () {
   var account_db;
   
   before(function () {
-    sol.model.accounts.clear_db();
-    account_db = sol.model.accounts.get_db();
+    sol.model.shifts.clear_db();
+    account_db = sol.model.shifts.get_db();
   });
 
   it( 'account database should be empty at first', function () {
@@ -171,7 +171,7 @@ describe('Tesing shift model', function () {
     expect( account_db().get().length )
       .to.be.above( 0 );
 
-    sol.model.accounts.clear_db();
+    sol.model.shifts.clear_db();
     
     expect( account_db().get.length )
       .to.be.equal( 0 );
@@ -187,7 +187,7 @@ describe('Tesing calculator', function () {
   
   before(function () {
     sol.model.employees.clear_db();
-    sol.model.accounts.clear_db();
+    sol.model.shifts.clear_db();
 
     employee1 = sol.model.employees.get_employee({
         name : 'Santeri Horttanainen',
@@ -318,22 +318,22 @@ describe('Tesing calculator', function () {
     expect( overtime_compensation ).to.be.equal( 0 );
   });
 
-  it( 'Overtime compensation should be 1.875 for two hours of overtime', function (){
+  it( 'Overtime compensation should be 1.88 for two hours of overtime', function (){
     var overtime_compensation = sol.salary_calculator.overtimeCompensationForShift( shift8 );
 
-    expect( overtime_compensation ).to.be.equal( 1.875 );
+    expect( overtime_compensation ).to.be.equal( 1.88 );
   });
 
-  it( 'Overtime compensation should be 5.625 for four hours of overtime', function (){
+  it( 'Overtime compensation should be 5.63 for four hours of overtime', function (){
     var overtime_compensation = sol.salary_calculator.overtimeCompensationForShift( shift9 );
 
-    expect( overtime_compensation ).to.be.equal( 5.625 );
+    expect( overtime_compensation ).to.be.equal( 5.63 );
   });
 
-  it( 'Overtime compensation should be 16.875 for seven hours of overtime', function (){
+  it( 'Overtime compensation should be 16.88 for seven hours of overtime', function (){
     var overtime_compensation = sol.salary_calculator.overtimeCompensationForShift( shift10 );
 
-    expect( overtime_compensation ).to.be.equal( 16.875 );
+    expect( overtime_compensation ).to.be.equal( 16.88 );
   });
 
   it( 'total pay for shift is calculated correctly', function () {

@@ -21,7 +21,9 @@ sol.file = (function () {
     },
     jqueryMap = {},
 
-    initModule, setJqueryMap, onFileInput, onDragOver, onDragLeave;
+    setJqueryMap, onFileInput,
+    onDragOver,   onDragLeave,
+    initModule;
     
   setJqueryMap = function () {
     var $container = stateMap.$container;
@@ -29,8 +31,7 @@ sol.file = (function () {
     jqueryMap = {
       $container : $container,
       $regular_input   : $container.find('#regular-input'),
-      $drop_input      : $container.find('.sol-shell-main-file-drop'),
-      $list            : $container.find('.sol-shell-main-list')
+      $drop_input      : $container.find('.sol-shell-main-file-drop')
     };
   };
 
