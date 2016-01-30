@@ -1,4 +1,4 @@
-# mwcs
+# MWCS
 Monthly Wage Calculation System
 
 # Heroku
