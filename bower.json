@@ -22,6 +22,8 @@
   ],
   "dependencies": {
     "jquery": "~2.2.0",
-    "taffy": "*"
+    "taffy": "*",
+    "mocha": "~2.4.5",
+    "chai": "~3.5.0"
   }
 }
