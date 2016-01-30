@@ -32,13 +32,14 @@ input, textarea, .sol-x-user-select {
   -ms-user-select     : text;
   user-select         : text;
 }
-
+html,
 body {
   font-family       : "Palatino Linotype", "Book Antiqua", Palatino, serif;
   font              : 10pt;
   color             : #444;
   background-color  : #888;
   background        : #F8F8F8;
+  height            : 100%;
 }
 a { text-decoration : none; }
   a:link, a:visited { color : inherit; }
@@ -50,6 +51,16 @@ strong {
 }
 
 #sol {
+  padding-top : 4em;
+  min-height    : 100%;
+  margin-bottom : -2em; 
+}
+
+.sol-shell-foot {
+  width       : 100%;
+  height      : 2em;
+  background  : #0077ae;
+  z-index     : 1;
 }
 
 .sol-x-clearfloat {

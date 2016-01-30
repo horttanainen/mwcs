@@ -26,16 +26,8 @@
   }
 
 .sol-shell-main {
-  margin-top    : 4em;
   margin-left   : 10%;
   padding-top   : 1em;
   margin-right  : 10%;
   background    : #FFFFFF;
-}
-
-.sol-shell-foot {
-  width       : 100%;
-  height      : 2em;
-  background  : #0077ae;
-  z-index     : 1;
 }

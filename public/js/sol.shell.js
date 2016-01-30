@@ -16,8 +16,6 @@ sol.shell = (function () {
             + '<div class="sol-shell-main-file"></div>'
             + '<div class="sol-shell-main-list"></div>'
         + '</div>'
-        + '<div class="sol-shell-foot">'
-        + '</div>'
     },
     stateMap = {
       $container : undefined
