@@ -8,8 +8,10 @@ sol.shell = (function () {
       main_html : String()
         + '<div class="sol-shell-head">'
           + '<div class="sol-shell-head-logo">'
-            + '<h1>AWESOME</h1>'
-            + '<p>Monthly Wage Calculation System</p>'
+            + '<div class="sol-shell-head-logo-stage">'
+            + '<div class="sol-shell-head-logo-stage-ball"><h1>MWCS</h1></div>'
+              + '<div class="sol-shell-head-logo-stage-shadow"></div>'
+            + '</div>'
           + '</div>'
         + '</div>'
         + '<div class="sol-shell-main">'

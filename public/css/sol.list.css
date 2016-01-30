@@ -6,10 +6,16 @@ padding-bottom  : 2em;
 }
 
 .sol-shell-main-list-employees {
-  margin-left   : 15%;
-  margin-right  : 15%;
-  list-style    : none;
-  font-size     : 1.5em;
+  -webkit-user-select : none;
+  -khtml-user-select  : none;
+  -moz-user-select    : -moz-none;
+  -o-user-select      : none;
+  -ms-user-select     : none;
+  user-select         : none;
+  margin-left         : 15%;
+  margin-right        : 15%;
+  list-style          : none;
+  font-size           : 1.5em;
 }
 .sol-shell-main-list-employees li {
   margin  : 0.5em 0;
@@ -38,16 +44,23 @@ padding-bottom  : 2em;
 }
 
 .sol-shell-main-list-employee-header {
-  font-size     : 2em;
+  font-size     : 1.5em;
   border-bottom : 1px solid #C0C0C0;
 }
 .sol-shell-main-list-employee-header span {
+  font-size     : 2em;
   font-weight : bold;
 }
  td {
   padding : 1em;
 }
 .sol-shell-main-list-employee-back {
+  -webkit-user-select : none;
+  -khtml-user-select  : none;
+  -moz-user-select    : -moz-none;
+  -o-user-select      : none;
+  -ms-user-select     : none;
+  user-select         : none;
   background-color    : #FFFFFF;
   border              : 2px solid #00aef0;
   overflow            : hidden;
