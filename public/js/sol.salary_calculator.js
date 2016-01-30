@@ -4,7 +4,7 @@ sol.salary_calculator = (function (){
   var
     configMap = {
       regular_wage          : 3.75,
-      evening_compensation  : 1.15,
+      evening_compensation  : 3.75 + 1.15,
       evening               : 18,
       morning               : 6,
       nextday_morning       : 24 + 6,
@@ -43,7 +43,6 @@ sol.salary_calculator = (function (){
 
       shift_total_hours = (shift.shift_end.getTime() - shift.shift_start.getTime()) / hour_in_milliseconds;
 
-      updateShiftAndEmployee( shift, ['total_hours', shift_total_hours ]);
       return roundToTwoDecimals( shift_total_hours );
     };
 
@@ -102,7 +101,6 @@ sol.salary_calculator = (function (){
 
       evening_hours = shift_total_hours - hours_before_evening - hours_after_evening;
 
-      updateShiftAndEmployee( shift, ['evening_hours', evening_hours] );
       return roundToTwoDecimals( evening_hours );
     };
 
@@ -111,6 +109,7 @@ sol.salary_calculator = (function (){
       
       evening_hours = eveningHoursInShift( shift );
 
+      updateShiftAndEmployee( shift, ['evening_hours', evening_hours] );
       return roundToTwoDecimals( evening_hours*configMap.evening_compensation );
     };
 
@@ -161,11 +160,16 @@ sol.salary_calculator = (function (){
       overtime_in_hours = Math.max( shift_total_hours - configMap.regular_day_length, 0 );
 
       updateShiftAndEmployee( shift, ['overtime_hours', overtime_in_hours ] );
+      updateShiftAndEmployee( shift, ['total_hours', shift_total_hours ]);
       return roundToTwoDecimals(sumOvertimeCompensationsTogether( overtime_in_hours ));
     };
 
     regularDailyWageForShift = function ( shift ) {
-      var regular_hours = Math.min( configMap.regular_day_length, totalHours( shift ) );
+      var regular_hours, evening_hours;
+
+      evening_hours = eveningHoursInShift( shift );
+      regular_hours = Math.min( configMap.regular_day_length, totalHours( shift ) );
+      regular_hours -= evening_hours;
 
       updateShiftAndEmployee( shift, ['regular_hours', regular_hours ] );
       return roundToTwoDecimals(configMap.regular_wage * regular_hours);
