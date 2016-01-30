@@ -2,3 +2,5 @@ node_modules
 public/js/jq/*
 !public/js/jq/jquery.event.gevent/
 !public/js/jq/jquery.event.gevent/*
+!public/js/jq/concanated.css
+!public/js/jq/concanated_and_minified.min.js

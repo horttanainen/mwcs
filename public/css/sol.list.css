@@ -44,11 +44,11 @@ padding-bottom  : 2em;
 }
 
 .sol-shell-main-list-employee-header {
-  font-size     : 1.2em;
+  font-size     : 1em;
   border-bottom : 1px solid #C0C0C0;
 }
 .sol-shell-main-list-employee-header span {
-  font-size     : 1.75em;
+  font-size     : 1.5em;
   font-weight : bold;
 }
  td {
