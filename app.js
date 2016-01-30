@@ -16,7 +16,7 @@ routes.configRoutes( app, server );
 //-------------------- END SERVER CONFIGURATION -------------------
 
 //--------------------- BEGIN START SERVER --------------------
-server.listen( 3000 );
+server.listen(process.env.PORT || 3000)
 console.log(
 'Express server listening on port %d in %s mode',
  server.address().port, app.settings.env
