@@ -13,15 +13,7 @@ sol.shell = (function () {
           + '</div>'
         + '</div>'
         + '<div class="sol-shell-main">'
-            + '<div class="sol-shell-main-file">'
-            + '<p>drop a file</p>'
-                + '<div class="sol-shell-main-file-drop">'
-                  + 'Drop a CSV file here'
-                + '</div>'
-                + '<div class="sol-shell-main-file-regular">'
-                + '<input type="file" id="regular-input" name="files[]" multiple />'
-                + '</div>'
-            + '</div>'
+            + '<div class="sol-shell-main-file"></div>'
             + '<div class="sol-shell-main-list"></div>'
         + '</div>'
         + '<div class="sol-shell-foot">'
@@ -32,35 +24,17 @@ sol.shell = (function () {
     },
     jqueryMap = {},
 
-    initModule, setJqueryMap, onFileInput, onDragOver, onDragLeave;
+    initModule, setJqueryMap, onLogoClick;
     
   setJqueryMap = function () {
     var $container = stateMap.$container;
 
     jqueryMap = {
       $container : $container,
-      $regular_input   : $container.find('#regular-input'),
-      $drop_input      : $container.find('.sol-shell-main-file-drop')
+      $file            : $container.find('.sol-shell-main-file'),
+      $list            : $container.find('.sol-shell-main-list'),
+      $logo            : $container.find('.sol-shell-head-logo')
     };
-  };
-
-  onFileInput = function ( event ) {
-    event.stopPropagation();
-    event.preventDefault();
-    sol.csv_handler.readCsvFile( event, sol.salary_calculator.calculateAllWagesAndAddToDb );
-  };
-
-  onDragOver = function ( event ) {
-    event.stopPropagation();
-    event.preventDefault();
-    event.originalEvent.dataTransfer.dropEffect = 'copy';
-    $(this).addClass('dragover');
-  };
-
-  onDragLeave = function ( event ) {
-    event.preventDefault();  
-    event.stopPropagation();
-    $(this).removeClass('dragover');
   };
 
   initModule = function ( $container ) {
@@ -68,17 +42,17 @@ sol.shell = (function () {
     $container.html( configMap.main_html );
     setJqueryMap();
 
-    jqueryMap.$regular_input
-      .bind('change', onFileInput );
+    jqueryMap.$logo
+      .bind('click', onLogoClick);
 
-    jqueryMap.$drop_input
-      .bind('dragover', onDragOver );
+    sol.file.initModule( jqueryMap.$file );
+    sol.list.initModule( jqueryMap.$list );
+    sol.model.accounts.clear_db();
+    sol.model.employees.clear_db();
+  };
 
-    jqueryMap.$drop_input
-      .bind('dragleave', onDragLeave);
-
-    jqueryMap.$drop_input
-      .bind('drop', onFileInput );
+  onLogoClick = function () {
+    initModule( stateMap.$container );
   };
 
   return { initModule : initModule };

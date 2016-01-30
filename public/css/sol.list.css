@@ -1,0 +1,70 @@
+.sol-shell-main-list { 
+background : #FFFFFF;
+color      : #606060;
+vertical-align : middle;
+padding-bottom : 1em;
+}
+
+.sol-shell-main-list-employees {
+  margin-left: 15%;
+  margin-right: 15%;
+  list-style : none;
+  font-size  : 1.5em;
+}
+.sol-shell-main-list-employees li {
+  margin  : 0.5em 0;
+}
+  .sol-shell-main-list-employees li:hover hr {
+    border-top: 1px solid #00aef0; 
+  }
+
+  .sol-shell-main-list-employees li:hover {
+    color : #00aef0;
+    cursor : pointer;
+  }
+
+.sol-shell-main-list-employees hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #C0C0C0;
+  padding: 0; 
+}
+.sol-shell-main-list-employee-header,
+.sol-shell-main-list-employee-back,
+.sol-shell-main-list-employee-table {
+  margin-left : 15%;
+  margin-right : 15%;
+}
+
+.sol-shell-main-list-employee-header {
+  font-size : 2em;
+  border-bottom: 1px solid #C0C0C0;
+}
+.sol-shell-main-list-employee-header span {
+  font-weight : bold;
+}
+ td {
+  padding : 1em;
+}
+.sol-shell-main-list-employee-back {
+  background-color    : #FFFFFF;
+  border              : 2px solid #00aef0;
+  overflow            : hidden;
+  display             : block;
+  width               : 150px;
+  transition          : all 0.3s linear 0s;
+  cursor              : pointer;
+  color               : #00aef0;
+  width               : 100px;
+  font-size           : 1em;
+  text-align          : center;
+  border-radius       : 5px;
+  font-weight         : bold;
+}
+.sol-shell-main-list-employee-back:hover {
+  background-color  : #00aef0;
+  color             : #fff;
+  border            : 2px solid #00aef0;
+  cursor            : pointer;
+}

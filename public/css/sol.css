@@ -34,9 +34,11 @@ input, textarea, .sol-x-user-select {
 }
 
 body {
-  font : 10pt 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
-  color            : #444;
-  background-color : #888;
+  font-family       : "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font              : 10pt;
+  color             : #444;
+  background-color  : #888;
+  background        : #F8F8F8;
 }
 a { text-decoration : none; }
   a:link, a:visited { color : inherit; }
@@ -48,22 +50,9 @@ strong {
 }
 
 #sol {
-  position   : absolute;
-  top        : 0;
-  left       : 0;
-  bottom     : 0;
-  right      : 0;
-  background : #fff;
-  min-height : 15em;
-  min-width  : 35em;
-  overflow   : hidden;
-  background : #F8F8F8;
 }
 
-.sol-x-select {}
 .sol-x-clearfloat {
   height     : 0      !important;
-  float      : none   !important;
   visibility : hidden !important;
-  clear      : both   !important;
 }

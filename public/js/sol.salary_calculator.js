@@ -23,7 +23,7 @@ sol.salary_calculator = (function (){
     calculateAllWagesAndAddToDb;
 
     roundToTwoDecimals = function ( number ) {
-      return Math.round( number * 100 ) / 100;
+      return Math.round( (number + 0.00001) * 100 ) / 100;
     };
 
     hoursAfterMorningInShift = function ( shift ) {
@@ -74,6 +74,8 @@ sol.salary_calculator = (function (){
         hour_in_milliseconds = 60*60*1000;
 
       shift_total_hours = (shift.shift_end.getTime() - shift.shift_start.getTime()) / hour_in_milliseconds;
+      sol.model.employees.update_employee( shift.employee_id, ['total_hours', shift_total_hours] );
+      sol.model.accounts.update_account( shift.id, ['total_hours', shift_total_hours ]);
       return roundToTwoDecimals( shift_total_hours );
     };
 
@@ -97,7 +99,7 @@ sol.salary_calculator = (function (){
       
       evening_hours = eveningHoursInShift( shift );
 
-      return evening_hours*configMap.evening_compensation;
+      return roundToTwoDecimals( evening_hours*configMap.evening_compensation );
     };
 
     compensationForTimeIntervalWithPercent = function ( time_interval, overtime_percent ) {
@@ -148,7 +150,7 @@ sol.salary_calculator = (function (){
 
       sol.model.employees.update_employee( shift.employee_id, ['overtime_hours' , overtime_in_hours] );
       sol.model.accounts.update_account( shift.id, ['overtime_hours', overtime_in_hours ]);
-      return sumOvertimeCompensationsTogether( overtime_in_hours );
+      return roundToTwoDecimals(sumOvertimeCompensationsTogether( overtime_in_hours ));
     };
 
     regularDailyWageForShift = function ( shift ) {
@@ -156,7 +158,7 @@ sol.salary_calculator = (function (){
 
       sol.model.employees.update_employee( shift.employee_id, ['regular_hours' , regular_hours] );
       sol.model.accounts.update_account( shift.id, ['regular_hours', regular_hours ]);
-      return configMap.regular_wage * regular_hours;
+      return roundToTwoDecimals(configMap.regular_wage * regular_hours);
     };
 
     totalPayForShift = function ( shift ) {
@@ -188,6 +190,7 @@ sol.salary_calculator = (function (){
         sol.model.employees.update_employee( shift.employee_id, ['total_earn', total_pay] );
         sol.model.accounts.update_account( shift.id, ['total_earn', total_pay ]);
       }
+      $.gevent.publish( 'db-update' );
     };
 
     return {

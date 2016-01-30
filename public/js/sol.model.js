@@ -88,7 +88,7 @@ sol.model = (function () {
       var attribute = update_map[0],
         new_value   = update_map[1];
       
-      this[ attribute ] = new_value + ( this[attribute] || 0);
+      this[ attribute ] =Math.round( (new_value + ( this[attribute] || 0) ) * 100 ) / 100;
       return this;
       });
     };
