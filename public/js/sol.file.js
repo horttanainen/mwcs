@@ -39,9 +39,11 @@ sol.file = (function () {
   onFileInput = function ( event ) {
     event.stopPropagation();
     event.preventDefault();
-    sol.csv_handler.readCsvFile( event, sol.salary_calculator.calculateAllWagesAndAddToDb );
-    $(this).removeClass('dragover');
-    stateMap.$container.addClass('sol-x-clearfloat');
+    try {
+      sol.csv_handler.readCsvFile( event, sol.salary_calculator.calculateAllWagesAndAddToDb );
+      $(this).removeClass('dragover');
+    } catch (e) {
+    }
   };
 
   onDragOver = function ( event ) {

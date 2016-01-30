@@ -202,6 +202,7 @@ sol.salary_calculator = (function (){
         updateShiftAndEmployee( shift, ['total_earn', total_pay] );
       }
       $.gevent.publish( 'db-update' );
+      $('.sol-shell-main-file').addClass('sol-x-clearfloat');
     };
 
     return {
